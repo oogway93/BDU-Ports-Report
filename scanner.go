@@ -76,7 +76,7 @@ func (s *Scanner) scanPort(ip string, port int) ScanResult {
 	}
 
 	address := fmt.Sprintf("%s:%d", ip, port)
-	conn, err := net.DialTimeout("tcp", address, 2*time.Second)
+	conn, err := net.DialTimeout("tcp", address, 5*time.Second)
 
 	if err != nil {
 		result.State = "closed"
@@ -114,6 +114,7 @@ func (s *Scanner) detectService(port int) string {
 		3306: "MySQL",
 		5432: "PostgreSQL",
 		8080: "HTTP-Proxy",
+		9929: "Nping-echo",
 	}
 
 	if service, ok := services[port]; ok {
@@ -214,6 +215,8 @@ func identifyService(conn net.Conn, port int) string {
 		return "HTTP Alt"
 	case 9200, 9300:
 		return "Elasticsearch"
+	case 9929:
+		return "Nping-echo"
 	case 11211:
 		return "Memcached"
 	case 27017, 27018, 27019:
