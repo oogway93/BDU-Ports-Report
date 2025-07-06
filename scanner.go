@@ -22,24 +22,24 @@ func NewScanner() *Scanner {
 }
 
 func (s *Scanner) Scan(ipsStr, portsStr string) []ScanResult {
-	// Парсинг IP-адресов
+	// Parse IP addresses
 	s.IPs = strings.Split(ipsStr, ",")
 
-	// Парсинг диапазона портов
+	// Parse port range
 	parts := strings.Split(portsStr, "-")
 	if len(parts) != 2 {
-		log.Fatal("Неверный формат диапазона портов. Используйте формат: начало-конец")
+		log.Fatal("Invalid port range format. Use format: start-end")
 	}
 
 	var err error
 	s.StartPort, err = strconv.Atoi(parts[0])
 	if err != nil {
-		log.Fatal("Неверный начальный порт:", err)
+		log.Fatal("Invalid start port:", err)
 	}
 
 	s.EndPort, err = strconv.Atoi(parts[1])
 	if err != nil {
-		log.Fatal("Неверный конечный порт:", err)
+		log.Fatal("Invalid end port:", err)
 	}
 
 	for port := s.StartPort; port <= s.EndPort; port++ {
@@ -87,13 +87,13 @@ func (s *Scanner) scanPort(ip string, port int) ScanResult {
 	result.State = "open"
 	result.Service = s.detectService(port)
 
-	// Получение информации об уязвимостях
+	// Get vulnerability information
 	vulnInfo := getVulnerabilityInfo(port, result.Service)
 	result.CVEs = vulnInfo.CVEs
 	result.MITRE = vulnInfo.MITRE
 	result.FSTEC = vulnInfo.FSTEC
-	
-	// Добавляем пентест-команды
+
+	// Add pentest commands
 	result.PenTestCommands = getPenTestCommands(port, result.Service, ip)
 
 	return result
@@ -233,4 +233,4 @@ func identifyService(conn net.Conn, port int) string {
 		}
 		return "Unknown"
 	}
-} 
+}

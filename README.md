@@ -1,62 +1,54 @@
 # bdu-ports-report
 
-# Сканер портов с информацией об уязвимостях
+# Port Scanner with Vulnerability Intelligence
 
-Сканер портов на языке Go, включающий информацию о CVE, MITRE ATT&CK и ФСТЭК БДУ в своих отчетах. Инструмент генерирует PDF-отчеты и предоставляет веб-интерфейс для просмотра результатов сканирования.
+A Go-based port scanner that incorporates CVE information, MITRE ATT&CK mappings, and FSTEC BDU data into its reports. The tool generates PDF reports and provides a web interface for viewing scan results.
 
-## Возможности
+## Features
 
-- Параллельное сканирование портов
-- Идентификация сервисов
-- Поиск информации о CVE
-- Сопоставление с MITRE ATT&CK
-- Информация из ФСТЭК БДУ
-- Генерация PDF-отчетов
-- Веб-интерфейс для результатов
-- Настраиваемые диапазоны портов
-- Рекомендации по пентесту для обнаруженных сервисов
+- Parallel port scanning
+- Service identification
+- CVE vulnerability lookup
+- MITRE ATT&CK framework mapping
+- FSTEC BDU vulnerability database integration
+- PDF report generation
+- Custom port ranges
+- Penetration testing recommendations for detected services
 
-## Установка
+## Installation
 
-1. Убедитесь, что у вас установлен Go 1.21 или новее
-2. Клонируйте этот репозиторий
-3. Установите зависимости:
+1. Ensure you have Go 1.21 or newer installed
+2. Clone this repository
+3. Install dependencies:
 ```bash
 go mod download
 ```
 
-## Использование
-
-Запустите сканер с помощью следующей команды:
-
+## Usage
+Run the scanner using the following command:
 ```bash
-go run . -ips=192.168.1.1,192.168.1.2 -ports=1-1024 -output=scan_report.pdf
+go run main.go -ips=192.168.1.1 -ports=1-1024 -output=scan_report.pdf
 ```
 
-### Аргументы командной строки
+## Command-line arguments
+- -ips: Comma-separated list of IP addresses to scan (required)
+- -ports: Port range to scan (default: 1-1024)
+- -output: Output PDF file path (default: scan_report.pdf)
 
-- `-ips`: Список IP-адресов для сканирования через запятую (обязательный)
-- `-ports`: Диапазон портов для сканирования (по умолчанию: 1-1024)
-- `-output`: Путь к выходному PDF-файлу (по умолчанию: scan_report.pdf)
+## Results
+### The tool generates the result as PDF Report, contains detailed scan:
 
-### Веб-интерфейс
+- IP addresses
 
-После запуска сканирования веб-интерфейс будет доступен по адресу `http://localhost:8787`, показывая результаты сканирования в удобном для браузера формате.
+- Open ports
 
-## Результаты
+- Identified services
 
-Инструмент генерирует два типа результатов:
+- Associated CVEs
 
-1. PDF-отчет: Содержит подробные результаты сканирования, включая:
-   - IP-адреса
-   - Открытые порты
-   - Идентифицированные сервисы
-   - Связанные CVE
-   - Сопоставления MITRE ATT&CK
-   - Информация из ФСТЭК БДУ
+- MITRE ATT&CK mappings
 
-2. Веб-интерфейс: Интерактивная веб-страница, показывающая ту же информацию в более удобном для пользователя формате.
+- FSTEC BDU information
 
-## Примечание по безопасности
-
-Этот инструмент предназначен только для авторизованного тестирования безопасности. Всегда убедитесь, что у вас есть разрешение на сканирование целевых систем. 
+# Security Notice
+This tool is intended for authorized security testing only. Always ensure you have permission to scan target systems.
