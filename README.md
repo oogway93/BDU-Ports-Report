@@ -1,4 +1,4 @@
-# bdu-ports-report
+# BDU Ports Report
 
 # Port Scanner with Vulnerability Intelligence
 

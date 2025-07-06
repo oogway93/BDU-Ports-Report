@@ -19,13 +19,13 @@ type Rep struct {
 func main() {
 	// Command-line flag parsing
 	var (
-		ips    = flag.String("ips", "", "IP addresses to scan (comma-separated)")
+		ips    = flag.String("ips", "", "IP address(es) to scan (comma-separated)")
 		ports  = flag.String("ports", "", "Port range (e.g., 80-1000)")
 		output = flag.String("output", "scan_report.pdf", "Path to save the PDF report")
 	)
 	flag.Parse()
 
-	if *ips == "" || *ports == "" {
+	if *ips == "" || *ports == ""  {
 		fmt.Println("Using: go run . -ips=192.168.1.1 -ports=80-1000 -output=report.pdf")
 		flag.PrintDefaults()
 		return
